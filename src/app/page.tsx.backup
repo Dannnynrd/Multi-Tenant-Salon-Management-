@@ -1,0 +1,1984 @@
+'use client'
+
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { useState, useEffect } from 'react'
+import { KPICounter } from '@/components/landing/kpi-counter'
+import { FeatureVisualization } from '@/components/landing/feature-visualization'
+import { EnterpriseIntegrations } from '@/components/landing/enterprise-integrations'
+import {
+  Calendar,
+  Users,
+  BarChart3,
+  CreditCard,
+  Shield,
+  Smartphone,
+  Check,
+  Star,
+  ArrowRight,
+  Clock,
+  TrendingUp,
+  Zap,
+  Globe,
+  HeartHandshake,
+  Sparkles,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle2,
+  Phone,
+  Mail,
+  MessageSquare,
+  Award,
+  UserCheck,
+  Palette,
+  BarChart,
+  Bell,
+  Repeat,
+  Database,
+  Package,
+  Lock,
+  CloudCheck,
+  Headphones,
+  Gauge,
+  Euro,
+  Infinity,
+  Building2,
+  Timer,
+  UserPlus,
+  Brain,
+  Layers,
+  Server,
+  Key,
+  ArrowUpRight,
+  Code2,
+  GitBranch,
+  Cpu,
+  Activity,
+  FileCheck,
+  Fingerprint,
+  ShieldCheck,
+  CalendarCheck,
+  LineChart,
+  Store,
+  Scissors,
+  UserCog,
+  CreditCard as CardIcon,
+  Workflow,
+  Banknote,
+  PieChart,
+  MessagesSquare,
+  Briefcase,
+  CalendarDays,
+  Receipt,
+  MousePointer,
+  Target,
+  CheckSquare
+} from 'lucide-react'
+
+export default function LandingPage() {
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('monthly')
+  const [scrollY, setScrollY] = useState(0)
+  const [activeFeature, setActiveFeature] = useState(0)
+  const [activeMetric, setActiveMetric] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveFeature((prev) => (prev + 1) % 4)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveMetric((prev) => (prev + 1) % 3)
+    }, 2500)
+    return () => clearInterval(interval)
+  }, [])
+
+  const faqItems = [
+    {
+      question: "Wie schnell kann ich mit SalonManager starten?",
+      answer: "Sofort! Nach der Registrierung ist Ihr System in weniger als 60 Sekunden einsatzbereit. Importieren Sie Ihre Kundendaten per CSV, konfigurieren Sie Ihre Services und Mitarbeiter - fertig. Die öffentliche Buchungsseite ist sofort live."
+    },
+    {
+      question: "Welche Zahlungsmethoden werden unterstützt?",
+      answer: "Vollständige Stripe-Integration für Kartenzahlungen (Visa, Mastercard, Amex), SEPA-Lastschrift, Sofortüberweisung, Apple Pay und Google Pay. PCI-DSS konform mit automatischer Rechnungserstellung."
+    },
+    {
+      question: "Wie sicher sind meine Daten?",
+      answer: "Maximale Sicherheit: Hosting in deutschen Rechenzentren (DSGVO-konform), End-to-End Verschlüsselung, tägliche Backups, Row-Level Security, 2-Faktor-Authentifizierung und vollständige Audit-Logs."
+    },
+    {
+      question: "Kann ich von meinem alten System wechseln?",
+      answer: "Ja! Wir unterstützen die Migration von allen gängigen Salon-Systemen. Import via CSV/Excel, Kundendaten, Termine und Umsatzhistorie. Unser Support-Team hilft Ihnen kostenlos beim Umzug."
+    },
+    {
+      question: "Funktioniert es auf allen Geräten?",
+      answer: "100% responsive und optimiert für alle Geräte. Nutzen Sie SalonManager auf Desktop, Tablet oder Smartphone. Die Progressive Web App funktioniert auch offline und synchronisiert automatisch."
+    },
+    {
+      question: "Was passiert bei technischen Problemen?",
+      answer: "24/7 Monitoring, 99.9% Uptime-Garantie und deutscher Support per E-Mail, Telefon und Chat. Professional- und Premium-Kunden erhalten Priority Support mit garantierter Antwortzeit."
+    }
+  ]
+
+  const pricing = {
+    monthly: {
+      starter: {
+        price: 29,
+        users: "Bis zu 2 Mitarbeiter",
+        features: [
+          "Unbegrenzte Termine",
+          "Basis Online-Buchung",
+          "E-Mail Benachrichtigungen",
+          "E-Mail Support",
+          "Basis-Statistik",
+          "Subdomain (salon.salonmanager.de)",
+          "Kundenverwaltung"
+        ]
+      },
+      professional: {
+        price: 49,
+        users: "Bis zu 10 Mitarbeiter",
+        popular: true,
+        features: [
+          "Alles aus Starter +",
+          "Eigene Domain (www.ihrsalon.de)",
+          "Kundenkartei & Notizen",
+          "Google Business Integration",
+          "Erweiterte Statistiken",
+          "SMS-Benachrichtigungen",
+          "Marketing Features:",
+          "• Loyalty Programm",
+          "• Kampagnen-Tool",
+          "• Bewertungsanfragen",
+          "Priority Support"
+        ]
+      },
+      premium: {
+        price: 199,
+        users: "Unbegrenzte Mitarbeiter",
+        features: [
+          "Alles aus Professional +",
+          "Multi-Salon Management",
+          "Personalplanung",
+          "KI-Umsatzprognosen",
+          "KI-Preisoptimierung",
+          "Benutzerrollen & Rechte",
+          "Eigene Mobile App",
+          "API-Zugriff",
+          "Premium Support 24/7",
+          "Dedizierter Success Manager"
+        ]
+      }
+    },
+    yearly: {
+      starter: {
+        price: 24,
+        originalPrice: 29,
+        users: "Bis zu 2 Mitarbeiter",
+        save: "2 Monate gratis",
+        features: [
+          "Unbegrenzte Termine",
+          "Basis Online-Buchung",
+          "E-Mail Benachrichtigungen",
+          "E-Mail Support",
+          "Basis-Statistik",
+          "Subdomain (salon.salonmanager.de)",
+          "Kundenverwaltung"
+        ]
+      },
+      professional: {
+        price: 33,
+        originalPrice: 49,
+        users: "Bis zu 10 Mitarbeiter",
+        popular: true,
+        save: "4 Monate gratis",
+        features: [
+          "Alles aus Starter +",
+          "Eigene Domain (www.ihrsalon.de)",
+          "Kundenkartei & Notizen",
+          "Google Business Integration",
+          "Erweiterte Statistiken",
+          "SMS-Benachrichtigungen",
+          "Marketing Features:",
+          "• Loyalty Programm",
+          "• Kampagnen-Tool",
+          "• Bewertungsanfragen",
+          "Priority Support"
+        ]
+      },
+      premium: {
+        price: 125,
+        originalPrice: 199,
+        users: "Unbegrenzte Mitarbeiter",
+        save: "€888/Jahr sparen",
+        features: [
+          "Alles aus Professional +",
+          "Multi-Salon Management",
+          "Personalplanung",
+          "KI-Umsatzprognosen",
+          "KI-Preisoptimierung",
+          "Benutzerrollen & Rechte",
+          "Eigene Mobile App",
+          "API-Zugriff",
+          "Premium Support 24/7",
+          "Dedizierter Success Manager"
+        ]
+      }
+    }
+  }
+
+  const currentPricing = pricing[billingInterval]
+
+  const mainFeatures = [
+    {
+      title: "Intelligenter Kalender",
+      description: "Drag & Drop Terminplanung mit Konflikterkennung",
+      details: "Automatische Terminvorschläge, Pufferzeiten, Mitarbeiter-Verfügbarkeit",
+      icon: CalendarCheck,
+      gradient: "from-blue-500 to-cyan-500",
+      stats: "50% weniger Leerlauf"
+    },
+    {
+      title: "Kunden-Management",
+      description: "360° Kundenansicht mit Historie und Präferenzen",
+      details: "Automatische Segmentierung, Notizen, Umsatz-Tracking",
+      icon: Users,
+      gradient: "from-purple-500 to-pink-500",
+      stats: "3x höhere Wiederkehrrate"
+    },
+    {
+      title: "Online-Buchung 24/7",
+      description: "Kunden buchen selbst - rund um die Uhr",
+      details: "Mobile-optimiert, Echtzeit-Verfügbarkeit, automatische Bestätigung",
+      icon: Globe,
+      gradient: "from-green-500 to-emerald-500",
+      stats: "40% mehr Buchungen"
+    },
+    {
+      title: "Business Intelligence",
+      description: "Datengetriebene Entscheidungen mit KI-Insights",
+      details: "Umsatz-Prognosen, Auslastungsanalyse, Mitarbeiter-Performance",
+      icon: LineChart,
+      gradient: "from-orange-500 to-red-500",
+      stats: "25% mehr Umsatz"
+    }
+  ]
+
+  return (
+    <div className="min-h-screen bg-white overflow-x-hidden">
+      {/* Subtle Gradient Background */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-50 via-white to-white" />
+        <div className="absolute top-20 -left-20 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
+        <div className="absolute top-40 -right-20 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-20 left-1/2 w-72 h-72 bg-pink-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
+      </div>
+
+
+      {/* Navigation - Minimal & Clean */}
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        scrollY > 10 ? 'bg-white/80 backdrop-blur-md border-b border-gray-100' : 'bg-transparent'
+      }`}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <div className="flex items-center gap-10">
+              <Link href="/" className="font-semibold text-lg tracking-tight">
+                SalonManager
+              </Link>
+
+              <div className="hidden md:flex items-center gap-7">
+                <Link href="#features" className="text-[13px] text-gray-600 hover:text-gray-900 transition-colors">
+                  Features
+                </Link>
+                <Link href="#pricing" className="text-[13px] text-gray-600 hover:text-gray-900 transition-colors">
+                  Preise
+                </Link>
+                <Link href="#enterprise" className="text-[13px] text-gray-600 hover:text-gray-900 transition-colors">
+                  Enterprise
+                </Link>
+                <Link href="#integrations" className="text-[13px] text-gray-600 hover:text-gray-900 transition-colors">
+                  Integrationen
+                </Link>
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-4">
+              <Link href="/auth/sign-in">
+                <Button variant="ghost" size="sm" className="text-[13px] font-medium">
+                  Anmelden
+                </Button>
+              </Link>
+              <Link href="/auth/sign-up">
+                <Button size="sm" className="bg-black hover:bg-gray-800 text-white text-[13px] font-medium px-4">
+                  Kostenlos testen
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section - Clean & Modern */}
+      <section className="relative min-h-screen flex items-center pt-16 pb-32">
+        <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <div className="relative z-10">
+              {/* Trust Badge */}
+              <div className="inline-flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-full text-[11px] font-medium mb-8">
+                <span className="flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                1.200+ Salons vertrauen uns
+              </div>
+
+              <h1 className="text-[56px] lg:text-[72px] font-bold leading-[1.05] tracking-tight text-gray-900 mb-6">
+                Die Zukunft der
+                <span className="block relative">
+                  Salonverwaltung
+                  <svg className="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 400 8">
+                    <path d="M0 4 Q100 0 200 4 T400 4" stroke="url(#gradient)" strokeWidth="3" fill="none" />
+                    <defs>
+                      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#3B82F6" />
+                        <stop offset="50%" stopColor="#8B5CF6" />
+                        <stop offset="100%" stopColor="#EC4899" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </span>
+              </h1>
+
+              <p className="text-[19px] text-gray-600 mb-10 leading-relaxed max-w-lg">
+                Keine Provisionen. Keine Marktplätze. Ihre eigene professionelle
+                Salon-Website mit allem was Sie brauchen.
+              </p>
+
+              {/* Key Metrics Grid */}
+              <div className="grid grid-cols-3 gap-4 mb-12">
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-gray-900">€29</div>
+                  <div className="text-xs text-gray-500">Ab/Monat</div>
+                </div>
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-gray-900">0%</div>
+                  <div className="text-xs text-gray-500">Provisionen</div>
+                </div>
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-gray-900">24/7</div>
+                  <div className="text-xs text-gray-500">Online-Buchung</div>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex gap-4">
+                <Link href="/auth/sign-up">
+                  <Button size="lg" className="h-12 px-6 bg-black hover:bg-gray-800 text-white font-medium">
+                    Kostenlos starten
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="flex items-center gap-6 mt-8 text-[11px] text-gray-500">
+                <div className="flex items-center gap-1">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-green-500" />
+                  Keine Kreditkarte
+                </div>
+                <div className="flex items-center gap-1">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-green-500" />
+                  30 Tage kostenlos
+                </div>
+                <div className="flex items-center gap-1">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-green-500" />
+                  Jederzeit kündbar
+                </div>
+              </div>
+            </div>
+
+            {/* Visual Dashboard Preview */}
+            <div className="relative lg:flex items-center justify-center hidden">
+              <div className="relative">
+                {/* Main Dashboard Card */}
+                <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-[600px] border border-gray-100">
+                  {/* Browser Chrome */}
+                  <div className="bg-gray-50 px-4 py-3 flex items-center gap-3 border-b">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 bg-gray-300 rounded-full" />
+                      <div className="w-3 h-3 bg-gray-300 rounded-full" />
+                      <div className="w-3 h-3 bg-gray-300 rounded-full" />
+                    </div>
+                    <div className="flex-1 flex justify-center">
+                      <div className="bg-gray-100 px-4 py-1 rounded-md text-xs text-gray-400">
+                        app.salonmanager.de
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dashboard Content */}
+                  <div className="p-8">
+                    {/* Stats Row */}
+                    <div className="grid grid-cols-4 gap-4 mb-8">
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl">
+                        <div className="text-2xl font-bold text-blue-900">24</div>
+                        <div className="text-xs text-blue-700">Heute</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl">
+                        <div className="text-2xl font-bold text-green-900">€1.8k</div>
+                        <div className="text-xs text-green-700">Umsatz</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl">
+                        <div className="text-2xl font-bold text-purple-900">89%</div>
+                        <div className="text-xs text-purple-700">Auslastung</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl">
+                        <div className="text-2xl font-bold text-orange-900">4.9</div>
+                        <div className="text-xs text-orange-700">Bewertung</div>
+                      </div>
+                    </div>
+
+                    {/* Calendar Grid */}
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <div className="grid grid-cols-7 gap-2">
+                        {['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map((day, i) => (
+                          <div key={i} className="text-center">
+                            <div className="text-[10px] font-medium text-gray-500 mb-2">{day}</div>
+                            <div className="space-y-1">
+                              {i < 5 && (
+                                <>
+                                  <div className="h-8 bg-blue-200 rounded-md" />
+                                  <div className="h-6 bg-green-200 rounded-md" />
+                                  {i % 2 === 0 && <div className="h-10 bg-purple-200 rounded-md" />}
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Cards */}
+                <div className="absolute -top-8 -right-8 bg-white rounded-xl shadow-xl p-4 w-48 animate-bounce" style={{ animationDelay: '0.5s' }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                      <CheckCircle2 className="h-5 w-5 text-green-600" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold">Neue Buchung</div>
+                      <div className="text-xs text-gray-500">Anna M. • 14:30</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute -bottom-6 -left-8 bg-white rounded-xl shadow-xl p-4 w-48 animate-bounce" style={{ animationDelay: '1.5s' }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                      <Star className="h-5 w-5 text-yellow-600" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold">Neue Bewertung</div>
+                      <div className="text-xs text-gray-500">5 Sterne erhalten</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Background Decoration */}
+                <div className="absolute inset-0 -z-10">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 rounded-full blur-3xl opacity-30" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+      {/* Feature Visualization */}
+      <FeatureVisualization />
+
+      {/* KPI Counter */}
+      <KPICounter />
+
+
+      {/* Integrations & Technology */}
+      <section id="technology" className="py-32 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <Badge className="mb-4 bg-purple-100 text-purple-700 border-0">
+              Integrationen & Technologie
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              Perfekt integriert in Ihr bestehendes Ökosystem
+            </h2>
+            <p className="text-lg text-gray-600">
+              Nahtlose Integration mit allen wichtigen Tools und Plattformen.
+              Deutsche Rechenzentren, höchste Sicherheitsstandards.
+            </p>
+          </div>
+
+          {/* Integration Partners Carousel with Real Logos */}
+          <div className="mb-20">
+            <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
+              Nahtlose Integration mit Ihren Lieblings-Tools
+            </h3>
+
+            {/* Infinite Scroll Container */}
+            <div className="relative overflow-hidden bg-white py-8">
+              <div className="flex animate-scroll">
+                {/* First Set */}
+                <div className="flex gap-12 px-6">
+                  {/* Stripe */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                  <svg viewBox="0 0 60 25" className="h-8" fill="#635BFF">
+                    <path d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a8.33 8.33 0 0 1-4.56 1.1c-4.01 0-6.83-2.5-6.83-7.48 0-4.19 2.39-7.52 6.3-7.52 3.92 0 5.96 3.28 5.96 7.5 0 .4-.04 1.26-.06 1.48zm-5.92-5.62c-1.03 0-2.17.73-2.17 2.58h4.25c0-1.85-1.07-2.58-2.08-2.58zM40.95 20.3c-1.44 0-2.32-.6-2.9-1.04l-.02 4.63-4.12.87V5.57h3.76l.08 1.02a4.7 4.7 0 0 1 3.23-1.29c2.9 0 5.62 2.6 5.62 7.4 0 5.23-2.7 7.6-5.65 7.6zM40 8.95c-.95 0-1.54.34-1.97.81l.02 6.12c.4.44.98.78 1.95.78 1.52 0 2.54-1.65 2.54-3.87 0-2.15-1.04-3.84-2.54-3.84zM28.24 5.57h4.13v14.44h-4.13V5.57zm0-4.7L32.37 0v3.36l-4.13.88V.88zm-3.06 9.64v9.5h-4.12V5.57h3.76l.08 1.22c.61-1.05 1.87-1.5 2.86-1.5.24 0 .5.02.73.04v3.93c-.21-.03-.48-.04-.72-.04-1.24 0-2.02.54-2.59 1.3zm-8.53-5.23c-2.7 0-4.36 2.3-4.36 5.47 0 3.2 1.66 5.5 4.36 5.5 1.04 0 1.93-.2 2.73-.63v3.4a7.08 7.08 0 0 1-3.35.73c-4.62 0-7.88-3.65-7.88-8.98 0-5.3 3.3-9 8.05-9 1.28 0 2.44.24 3.29.68v3.44a5.73 5.73 0 0 0-2.84-.61z"/>
+                  </svg>
+                  </div>
+
+                  {/* Google */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                  <svg viewBox="0 0 256 262" className="h-10" preserveAspectRatio="xMidYMid">
+                    <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"/>
+                    <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"/>
+                    <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"/>
+                    <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EA4335"/>
+                  </svg>
+                  </div>
+
+                  {/* WhatsApp */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                  <svg viewBox="0 0 175.216 175.552" className="h-10">
+                    <defs>
+                      <linearGradient id="whatsapp-gradient" x1="85.915" x2="86.535" y1="32.567" y2="137.092" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stopColor="#25CF43"/>
+                        <stop offset="1" stopColor="#61FD7D"/>
+                      </linearGradient>
+                    </defs>
+                    <path fill="#25CF43" d="M87.184 25.227c-33.733 0-61.166 27.423-61.178 61.13a60.98 60.98 0 0 0 9.349 32.535l1.455 2.312-6.179 22.559 23.146-6.069 2.235 1.324c9.387 5.571 20.15 8.518 31.126 8.524h.023c33.707 0 61.14-27.426 61.153-61.135a60.75 60.75 0 0 0-17.895-43.251 60.75 60.75 0 0 0-43.235-17.929z"/>
+                    <path fill="#FFF" d="M68.772 55.603c-1.378-3.061-2.828-3.123-4.137-3.176l-3.524-.043c-1.226 0-3.218.46-4.902 2.3s-6.435 6.287-6.435 15.332 6.588 17.785 7.506 19.013 12.718 20.381 31.405 27.75c15.529 6.124 18.689 4.906 22.061 4.6s10.877-4.447 12.408-8.74 1.532-7.971 1.073-8.74-1.685-1.226-3.525-2.146-10.877-5.367-12.562-5.981-2.91-.919-4.137.921-4.746 5.979-5.819 7.206-2.144 1.381-3.984.462-7.76-2.861-14.784-9.124c-5.465-4.873-9.154-10.891-10.228-12.73s-.114-2.835.808-3.751c.825-.824 1.838-2.147 2.759-3.22s1.224-1.84 1.836-3.065.307-2.301-.153-3.22-4.032-10.011-5.666-13.647"/>
+                  </svg>
+                  </div>
+
+                  {/* PayPal */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                  <svg viewBox="0 0 256 302" className="h-10" preserveAspectRatio="xMidYMid">
+                    <path fill="#27346A" d="M217.168 23.507C203.234 7.625 178.046.816 145.823.816h-93.52A13.393 13.393 0 0 0 39.076 12.11L.136 259.077c-.774 4.87 2.997 9.28 7.933 9.28h57.736l14.5-91.971-.45 2.88c1.033-6.501 6.593-11.296 13.177-11.296h27.436c53.898 0 96.101-21.892 108.429-85.221.366-1.873.683-3.696.957-5.477-1.556-.824-1.556-.824 0 0 3.671-23.407-.025-39.34-12.686-53.765"/>
+                    <path fill="#27346A" d="M102.397 68.84a11.737 11.737 0 0 1 11.56-9.805h73.733c8.739 0 16.896.573 24.34 1.778a101.6 101.6 0 0 1 6.75 1.374 89.928 89.928 0 0 1 8.04 2.199c2.816.956 5.486 2.007 8.008 3.162 3.67-23.407-.026-39.34-12.687-53.765C203.234 7.625 178.046.816 145.823.816H52.303C45.71.816 40.108 5.61 39.076 12.11L.136 259.077c-.774 4.871 2.997 9.281 7.933 9.281h57.736l14.5-91.971 22.092-139.547z"/>
+                    <path fill="#2790C3" d="M228.897 82.749c-12.328 63.32-54.53 85.221-108.429 85.221H93.024c-6.584 0-12.145 4.795-13.168 11.296L61.817 293.621c-.674 4.262 2.622 8.124 6.934 8.124h48.67a11.71 11.71 0 0 0 11.563-9.854l.474-2.48 9.173-58.136.591-3.213a11.71 11.71 0 0 1 11.562-9.854h7.284c47.147 0 84.064-19.154 94.852-74.55 4.503-23.15 2.173-42.478-9.739-56.054-3.613-4.112-8.1-7.508-13.327-10.28-.283 1.79-.59 3.604-.957 5.477z"/>
+                    <path fill="#1F264F" d="M216.952 72.128a89.928 89.928 0 0 0-5.818-1.49 109.904 109.904 0 0 0-6.75-1.374c-7.444-1.205-15.6-1.778-24.34-1.778h-73.733a11.737 11.737 0 0 0-11.56 9.805l-22.092 139.547-.45 2.88c1.023-6.501 6.584-11.296 13.168-11.296h27.444c53.898 0 96.101-21.892 108.429-85.221.366-1.873.683-3.696.957-5.477-3.274-1.732-6.59-3.217-9.957-4.596z"/>
+                  </svg>
+                  </div>
+
+                  {/* Instagram */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                  <svg viewBox="0 0 256 256" className="h-10" preserveAspectRatio="xMidYMid">
+                    <defs>
+                      <linearGradient id="instagram-gradient" x1="50%" x2="50%" y1="0%" y2="100%">
+                        <stop offset="0%" stopColor="#E52D5A"/>
+                        <stop offset="50%" stopColor="#D72B83"/>
+                        <stop offset="100%" stopColor="#FCAF45"/>
+                      </linearGradient>
+                    </defs>
+                    <path fill="url(#instagram-gradient)" d="M128 0C93.237 0 88.878.147 75.226.77c-13.625.622-22.93 2.786-31.071 5.95-8.418 3.271-15.556 7.648-22.672 14.764C14.367 28.6 9.991 35.738 6.72 44.155 3.555 52.297 1.392 61.602.77 75.226.147 88.878 0 93.237 0 128s.147 39.122.77 52.774c.622 13.625 2.785 22.93 5.95 31.071 3.27 8.417 7.647 15.556 14.763 22.672 7.116 7.116 14.254 11.492 22.672 14.763 8.142 3.165 17.446 5.328 31.07 5.95 13.653.623 18.012.77 52.775.77s39.122-.147 52.774-.77c13.624-.622 22.929-2.785 31.07-5.95 8.418-3.27 15.556-7.647 22.672-14.763 7.116-7.116 11.493-14.254 14.764-22.672 3.164-8.142 5.327-17.446 5.95-31.07.623-13.653.77-18.012.77-52.775s-.147-39.122-.77-52.774c-.623-13.624-2.786-22.929-5.95-31.07-3.271-8.418-7.648-15.556-14.764-22.672C227.4 14.368 220.262 9.99 211.845 6.72c-8.142-3.164-17.447-5.328-31.071-5.95C167.122.147 162.763 0 128 0zm0 23.027c34.234 0 38.279.13 51.8.746 12.48.57 19.258 2.655 23.769 4.408 5.974 2.322 10.238 5.096 14.717 9.575 4.48 4.479 7.253 8.743 9.575 14.717 1.753 4.511 3.838 11.289 4.408 23.768.616 13.522.746 17.567.746 51.8 0 34.234-.13 38.279-.746 51.8-.57 12.48-2.655 19.258-4.408 23.77-2.322 5.973-5.096 10.237-9.575 14.716-4.479 4.48-8.743 7.254-14.717 9.575-4.511 1.753-11.289 3.839-23.769 4.408-13.514.616-17.558.746-51.8.746-34.241 0-38.286-.13-51.8-.746-12.48-.57-19.257-2.655-23.768-4.408-5.974-2.321-10.238-5.095-14.717-9.575-4.48-4.479-7.254-8.743-9.576-14.717-1.753-4.51-3.838-11.288-4.408-23.768-.616-13.522-.746-17.567-.746-51.8 0-34.234.13-38.279.746-51.8.57-12.48 2.655-19.257 4.408-23.769 2.322-5.974 5.096-10.238 9.576-14.717 4.479-4.479 8.743-7.253 14.717-9.575 4.51-1.753 11.288-3.838 23.768-4.408 13.522-.616 17.567-.746 51.8-.746zm0 39.237c-36.302 0-65.736 29.434-65.736 65.736S91.698 193.736 128 193.736 193.736 164.302 193.736 128 164.302 62.264 128 62.264zm0 108.397c-23.564 0-42.661-19.098-42.661-42.661S104.436 85.339 128 85.339s42.661 19.098 42.661 42.661-19.098 42.661-42.661 42.661zm83.686-110.994c0 8.484-6.876 15.36-15.36 15.36-8.483 0-15.36-6.876-15.36-15.36 0-8.483 6.877-15.36 15.36-15.36 8.484 0 15.36 6.877 15.36 15.36z"/>
+                  </svg>
+                  </div>
+
+                  {/* Mailchimp */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                  <svg viewBox="0 0 256 230" className="h-10" preserveAspectRatio="xMidYMid">
+                    <path fill="#FFE01B" d="M41.836 122.818l4.903 34.681 28.835-1.032-6.032-37.074z"/>
+                    <path d="M199.076 143.419c0 24.436-20.933 44.628-47.025 45.588 1.079.04 2.151.061 3.242.061 28.115 0 50.925-21.45 50.925-47.912 0-18.613-11.274-34.754-27.765-42.705 10.609 10.053 20.623 25.174 20.623 44.968zm-8.106 1.621c0-16.846-8.984-27.59-14.16-32.74a47.639 47.639 0 00-12.048-8.775c16.293 7.376 25.888 22.446 25.888 39.894 0 25.495-22.01 45.589-48.604 45.589-1.832 0-3.578-.096-5.412-.284 24.472-1.833 54.336-18.451 54.336-43.684z" fill="#221F20" opacity=".2"/>
+                    <path fill="#2C1338" d="M228.918 152.366c0-18.047-7.995-27.542-17.81-27.542-9.886 0-17.899 9.549-17.899 21.346 0 14.07 10.17 21.29 20.229 21.29.905 0 1.821-.054 2.723-.167a31.688 31.688 0 002.413-.343c3.206-.598 5.47-1.487 6.906-2.709 3.076-2.619 3.438-6.87 3.438-11.875zM41.84 122.818L34.36 167.67l36.215-7.244z"/>
+                  </svg>
+                  </div>
+
+                  {/* DATEV */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <div className="bg-green-600 text-white font-bold text-xl px-4 py-2 rounded">
+                      DATEV
+                    </div>
+                  </div>
+
+                  {/* Twilio */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                  <svg viewBox="0 0 256 256" className="h-10">
+                    <circle cx="128" cy="128" r="128" fill="#F22F46"/>
+                    <path fill="#FFF" d="M90.9 90.9c0-10.2 8.3-18.5 18.5-18.5s18.5 8.3 18.5 18.5-8.3 18.5-18.5 18.5-18.5-8.3-18.5-18.5zm74.7 0c0-10.2 8.3-18.5 18.5-18.5s18.5 8.3 18.5 18.5-8.3 18.5-18.5 18.5-18.5-8.3-18.5-18.5zm-74.7 74.7c0-10.2 8.3-18.5 18.5-18.5s18.5 8.3 18.5 18.5-8.3 18.5-18.5 18.5-18.5-8.3-18.5-18.5zm74.7 0c0-10.2 8.3-18.5 18.5-18.5s18.5 8.3 18.5 18.5-8.3 18.5-18.5 18.5-18.5-8.3-18.5-18.5z"/>
+                  </svg>
+                  </div>
+                </div>
+
+                {/* Duplicate set for seamless loop */}
+                <div className="flex gap-12 px-6">
+                  {/* Stripe */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <svg viewBox="0 0 60 25" className="h-8" fill="#635BFF">
+                      <path d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a8.33 8.33 0 0 1-4.56 1.1c-4.01 0-6.83-2.5-6.83-7.48 0-4.19 2.39-7.52 6.3-7.52 3.92 0 5.96 3.28 5.96 7.5 0 .4-.04 1.26-.06 1.48zm-5.92-5.62c-1.03 0-2.17.73-2.17 2.58h4.25c0-1.85-1.07-2.58-2.08-2.58zM40.95 20.3c-1.44 0-2.32-.6-2.9-1.04l-.02 4.63-4.12.87V5.57h3.76l.08 1.02a4.7 4.7 0 0 1 3.23-1.29c2.9 0 5.62 2.6 5.62 7.4 0 5.23-2.7 7.6-5.65 7.6zM40 8.95c-.95 0-1.54.34-1.97.81l.02 6.12c.4.44.98.78 1.95.78 1.52 0 2.54-1.65 2.54-3.87 0-2.15-1.04-3.84-2.54-3.84zM28.24 5.57h4.13v14.44h-4.13V5.57zm0-4.7L32.37 0v3.36l-4.13.88V.88zm-3.06 9.64v9.5h-4.12V5.57h3.76l.08 1.22c.61-1.05 1.87-1.5 2.86-1.5.24 0 .5.02.73.04v3.93c-.21-.03-.48-.04-.72-.04-1.24 0-2.02.54-2.59 1.3zm-8.53-5.23c-2.7 0-4.36 2.3-4.36 5.47 0 3.2 1.66 5.5 4.36 5.5 1.04 0 1.93-.2 2.73-.63v3.4a7.08 7.08 0 0 1-3.35.73c-4.62 0-7.88-3.65-7.88-8.98 0-5.3 3.3-9 8.05-9 1.28 0 2.44.24 3.29.68v3.44a5.73 5.73 0 0 0-2.84-.61z"/>
+                    </svg>
+                  </div>
+
+                  {/* Google */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <svg viewBox="0 0 256 262" className="h-10" preserveAspectRatio="xMidYMid">
+                      <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"/>
+                      <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"/>
+                      <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"/>
+                      <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EA4335"/>
+                    </svg>
+                  </div>
+
+                  {/* WhatsApp */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <svg viewBox="0 0 175.216 175.552" className="h-10">
+                      <defs>
+                        <linearGradient id="whatsapp-gradient2" x1="85.915" x2="86.535" y1="32.567" y2="137.092" gradientUnits="userSpaceOnUse">
+                          <stop offset="0" stopColor="#25CF43"/>
+                          <stop offset="1" stopColor="#61FD7D"/>
+                        </linearGradient>
+                      </defs>
+                      <path fill="#25CF43" d="M87.184 25.227c-33.733 0-61.166 27.423-61.178 61.13a60.98 60.98 0 0 0 9.349 32.535l1.455 2.312-6.179 22.559 23.146-6.069 2.235 1.324c9.387 5.571 20.15 8.518 31.126 8.524h.023c33.707 0 61.14-27.426 61.153-61.135a60.75 60.75 0 0 0-17.895-43.251 60.75 60.75 0 0 0-43.235-17.929z"/>
+                      <path fill="#FFF" d="M68.772 55.603c-1.378-3.061-2.828-3.123-4.137-3.176l-3.524-.043c-1.226 0-3.218.46-4.902 2.3s-6.435 6.287-6.435 15.332 6.588 17.785 7.506 19.013 12.718 20.381 31.405 27.75c15.529 6.124 18.689 4.906 22.061 4.6s10.877-4.447 12.408-8.74 1.532-7.971 1.073-8.74-1.685-1.226-3.525-2.146-10.877-5.367-12.562-5.981-2.91-.919-4.137.921-4.746 5.979-5.819 7.206-2.144 1.381-3.984.462-7.76-2.861-14.784-9.124c-5.465-4.873-9.154-10.891-10.228-12.73s-.114-2.835.808-3.751c.825-.824 1.838-2.147 2.759-3.22s1.224-1.84 1.836-3.065.307-2.301-.153-3.22-4.032-10.011-5.666-13.647"/>
+                    </svg>
+                  </div>
+
+                  {/* PayPal */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <svg viewBox="0 0 256 302" className="h-10" preserveAspectRatio="xMidYMid">
+                      <path fill="#27346A" d="M217.168 23.507C203.234 7.625 178.046.816 145.823.816h-93.52A13.393 13.393 0 0 0 39.076 12.11L.136 259.077c-.774 4.87 2.997 9.28 7.933 9.28h57.736l14.5-91.971-.45 2.88c1.033-6.501 6.593-11.296 13.177-11.296h27.436c53.898 0 96.101-21.892 108.429-85.221.366-1.873.683-3.696.957-5.477-1.556-.824-1.556-.824 0 0 3.671-23.407-.025-39.34-12.686-53.765"/>
+                      <path fill="#27346A" d="M102.397 68.84a11.737 11.737 0 0 1 11.56-9.805h73.733c8.739 0 16.896.573 24.34 1.778a101.6 101.6 0 0 1 6.75 1.374 89.928 89.928 0 0 1 8.04 2.199c2.816.956 5.486 2.007 8.008 3.162 3.67-23.407-.026-39.34-12.687-53.765C203.234 7.625 178.046.816 145.823.816H52.303C45.71.816 40.108 5.61 39.076 12.11L.136 259.077c-.774 4.871 2.997 9.281 7.933 9.281h57.736l14.5-91.971 22.092-139.547z"/>
+                      <path fill="#2790C3" d="M228.897 82.749c-12.328 63.32-54.53 85.221-108.429 85.221H93.024c-6.584 0-12.145 4.795-13.168 11.296L61.817 293.621c-.674 4.262 2.622 8.124 6.934 8.124h48.67a11.71 11.71 0 0 0 11.563-9.854l.474-2.48 9.173-58.136.591-3.213a11.71 11.71 0 0 1 11.562-9.854h7.284c47.147 0 84.064-19.154 94.852-74.55 4.503-23.15 2.173-42.478-9.739-56.054-3.613-4.112-8.1-7.508-13.327-10.28-.283 1.79-.59 3.604-.957 5.477z"/>
+                      <path fill="#1F264F" d="M216.952 72.128a89.928 89.928 0 0 0-5.818-1.49 109.904 109.904 0 0 0-6.75-1.374c-7.444-1.205-15.6-1.778-24.34-1.778h-73.733a11.737 11.737 0 0 0-11.56 9.805l-22.092 139.547-.45 2.88c1.023-6.501 6.584-11.296 13.168-11.296h27.444c53.898 0 96.101-21.892 108.429-85.221.366-1.873.683-3.696.957-5.477-3.274-1.732-6.59-3.217-9.957-4.596z"/>
+                    </svg>
+                  </div>
+
+                  {/* And continue with rest... */}
+                  {/* Instagram */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <svg viewBox="0 0 256 256" className="h-10" preserveAspectRatio="xMidYMid">
+                      <defs>
+                        <linearGradient id="instagram-gradient2" x1="50%" x2="50%" y1="0%" y2="100%">
+                          <stop offset="0%" stopColor="#E52D5A"/>
+                          <stop offset="50%" stopColor="#D72B83"/>
+                          <stop offset="100%" stopColor="#FCAF45"/>
+                        </linearGradient>
+                      </defs>
+                      <path fill="url(#instagram-gradient2)" d="M128 0C93.237 0 88.878.147 75.226.77c-13.625.622-22.93 2.786-31.071 5.95-8.418 3.271-15.556 7.648-22.672 14.764C14.367 28.6 9.991 35.738 6.72 44.155 3.555 52.297 1.392 61.602.77 75.226.147 88.878 0 93.237 0 128s.147 39.122.77 52.774c.622 13.625 2.785 22.93 5.95 31.071 3.27 8.417 7.647 15.556 14.763 22.672 7.116 7.116 14.254 11.492 22.672 14.763 8.142 3.165 17.446 5.328 31.07 5.95 13.653.623 18.012.77 52.775.77s39.122-.147 52.774-.77c13.624-.622 22.929-2.785 31.07-5.95 8.418-3.27 15.556-7.647 22.672-14.763 7.116-7.116 11.493-14.254 14.764-22.672 3.164-8.142 5.327-17.446 5.95-31.07.623-13.653.77-18.012.77-52.775s-.147-39.122-.77-52.774c-.623-13.624-2.786-22.929-5.95-31.07-3.271-8.418-7.648-15.556-14.764-22.672C227.4 14.368 220.262 9.99 211.845 6.72c-8.142-3.164-17.447-5.328-31.071-5.95C167.122.147 162.763 0 128 0zm0 23.027c34.234 0 38.279.13 51.8.746 12.48.57 19.258 2.655 23.769 4.408 5.974 2.322 10.238 5.096 14.717 9.575 4.48 4.479 7.253 8.743 9.575 14.717 1.753 4.511 3.838 11.289 4.408 23.768.616 13.522.746 17.567.746 51.8 0 34.234-.13 38.279-.746 51.8-.57 12.48-2.655 19.258-4.408 23.77-2.322 5.973-5.096 10.237-9.575 14.716-4.479 4.48-8.743 7.254-14.717 9.575-4.511 1.753-11.289 3.839-23.769 4.408-13.514.616-17.558.746-51.8.746-34.241 0-38.286-.13-51.8-.746-12.48-.57-19.257-2.655-23.768-4.408-5.974-2.321-10.238-5.095-14.717-9.575-4.48-4.479-7.254-8.743-9.576-14.717-1.753-4.51-3.838-11.288-4.408-23.768-.616-13.522-.746-17.567-.746-51.8 0-34.234.13-38.279.746-51.8.57-12.48 2.655-19.257 4.408-23.769 2.322-5.974 5.096-10.238 9.576-14.717 4.479-4.479 8.743-7.253 14.717-9.575 4.51-1.753 11.288-3.838 23.768-4.408 13.522-.616 17.567-.746 51.8-.746zm0 39.237c-36.302 0-65.736 29.434-65.736 65.736S91.698 193.736 128 193.736 193.736 164.302 193.736 128 164.302 62.264 128 62.264zm0 108.397c-23.564 0-42.661-19.098-42.661-42.661S104.436 85.339 128 85.339s42.661 19.098 42.661 42.661-19.098 42.661-42.661 42.661zm83.686-110.994c0 8.484-6.876 15.36-15.36 15.36-8.483 0-15.36-6.876-15.36-15.36 0-8.483 6.877-15.36 15.36-15.36 8.484 0 15.36 6.877 15.36 15.36z"/>
+                    </svg>
+                  </div>
+
+                  {/* Mailchimp */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <svg viewBox="0 0 256 230" className="h-10" preserveAspectRatio="xMidYMid">
+                      <path fill="#FFE01B" d="M41.836 122.818l4.903 34.681 28.835-1.032-6.032-37.074z"/>
+                      <path d="M199.076 143.419c0 24.436-20.933 44.628-47.025 45.588 1.079.04 2.151.061 3.242.061 28.115 0 50.925-21.45 50.925-47.912 0-18.613-11.274-34.754-27.765-42.705 10.609 10.053 20.623 25.174 20.623 44.968zm-8.106 1.621c0-16.846-8.984-27.59-14.16-32.74a47.639 47.639 0 00-12.048-8.775c16.293 7.376 25.888 22.446 25.888 39.894 0 25.495-22.01 45.589-48.604 45.589-1.832 0-3.578-.096-5.412-.284 24.472-1.833 54.336-18.451 54.336-43.684z" fill="#221F20" opacity=".2"/>
+                      <path fill="#2C1338" d="M228.918 152.366c0-18.047-7.995-27.542-17.81-27.542-9.886 0-17.899 9.549-17.899 21.346 0 14.07 10.17 21.29 20.229 21.29.905 0 1.821-.054 2.723-.167a31.688 31.688 0 002.413-.343c3.206-.598 5.47-1.487 6.906-2.709 3.076-2.619 3.438-6.87 3.438-11.875zM41.84 122.818L34.36 167.67l36.215-7.244z"/>
+                    </svg>
+                  </div>
+
+                  {/* DATEV */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <div className="bg-green-600 text-white font-bold text-xl px-4 py-2 rounded">
+                      DATEV
+                    </div>
+                  </div>
+
+                  {/* Twilio */}
+                  <div className="flex items-center justify-center min-w-[150px]">
+                    <svg viewBox="0 0 256 256" className="h-10">
+                      <circle cx="128" cy="128" r="128" fill="#F22F46"/>
+                      <path fill="#FFF" d="M90.9 90.9c0-10.2 8.3-18.5 18.5-18.5s18.5 8.3 18.5 18.5-8.3 18.5-18.5 18.5-18.5-8.3-18.5-18.5zm74.7 0c0-10.2 8.3-18.5 18.5-18.5s18.5 8.3 18.5 18.5-8.3 18.5-18.5 18.5-18.5-8.3-18.5-18.5zm-74.7 74.7c0-10.2 8.3-18.5 18.5-18.5s18.5 8.3 18.5 18.5-8.3 18.5-18.5 18.5-18.5-8.3-18.5-18.5zm74.7 0c0-10.2 8.3-18.5 18.5-18.5s18.5 8.3 18.5 18.5-8.3 18.5-18.5 18.5-18.5-8.3-18.5-18.5z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Gradient overlays for smooth fade */}
+              <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none" />
+            </div>
+
+            <p className="text-center text-gray-600 mt-8">
+              ...und viele weitere Integrationen verfügbar oder auf Anfrage
+            </p>
+          </div>
+
+
+          {/* Tech Stack Cards */}
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Infrastructure */}
+            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-xl transition-all">
+              <div className="inline-flex p-3 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl mb-6">
+                <Server className="h-6 w-6 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                Deutsche Infrastruktur
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Frankfurt Datacenter</div>
+                    <div className="text-xs text-gray-500">100% in Deutschland gehostet</div>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">99.9% Uptime</div>
+                    <div className="text-xs text-gray-500">Garantierte Verfügbarkeit</div>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Auto-Scaling</div>
+                    <div className="text-xs text-gray-500">Wächst mit Ihrem Salon</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Security */}
+            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-xl transition-all">
+              <div className="inline-flex p-3 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl mb-6">
+                <ShieldCheck className="h-6 w-6 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                Maximale Sicherheit
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">DSGVO-konform</div>
+                    <div className="text-xs text-gray-500">Vollständige Compliance</div>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">256-bit Verschlüsselung</div>
+                    <div className="text-xs text-gray-500">Bank-Level Security</div>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Tägliche Backups</div>
+                    <div className="text-xs text-gray-500">30 Tage Aufbewahrung</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* Support */}
+            <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-xl transition-all">
+              <div className="inline-flex p-3 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl mb-6">
+                <Headphones className="h-6 w-6 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                Deutscher Support
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">24/7 Erreichbar</div>
+                    <div className="text-xs text-gray-500">Immer für Sie da</div>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Kostenlose Schulung</div>
+                    <div className="text-xs text-gray-500">Onboarding inklusive</div>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">Migration-Service</div>
+                    <div className="text-xs text-gray-500">Wir helfen beim Umzug</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Live Dashboard Demo */}
+          <div className="mt-20 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-10 overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <Badge className="mb-4 bg-green-500 text-white">
+                  Live Dashboard
+                </Badge>
+                <h3 className="text-3xl font-bold text-white mb-4">
+                  Alles im Blick - in Echtzeit
+                </h3>
+                <p className="text-gray-300 mb-6">
+                  Überwachen Sie Ihre wichtigsten KPIs in Echtzeit. Umsatz, Auslastung,
+                  nächste Termine - alles auf einen Blick.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                    <div className="text-2xl font-bold text-white">15ms</div>
+                    <div className="text-sm text-gray-400">Response Time</div>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                    <div className="text-2xl font-bold text-white">99.99%</div>
+                    <div className="text-sm text-gray-400">Uptime</div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="bg-black/20 backdrop-blur rounded-xl p-4 border border-white/10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-3 h-3 bg-red-500 rounded-full" />
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+                    <div className="w-3 h-3 bg-green-500 rounded-full" />
+                  </div>
+                  <pre className="text-xs text-green-400 font-mono">
+                    <code>{`{
+  "status": "operational",
+  "uptime": "99.99%",
+  "response_time": "15ms",
+  "active_users": 1247,
+  "daily_bookings": 3842,
+  "revenue_today": "€45,231"
+}`}</code>
+                  </pre>
+                </div>
+                <div className="absolute -top-4 -right-4 bg-green-500 text-white text-xs px-3 py-1 rounded-full animate-pulse">
+                  LIVE
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing - Transparent & Clear */}
+      <section id="pricing" className="py-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <Badge className="mb-4 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border-0">
+              Transparente Preise
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              Fair, transparent und ohne versteckte Kosten
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              30 Tage kostenlos testen. Keine Kreditkarte erforderlich.
+              Jederzeit kündbar. Keine Setup-Gebühren.
+            </p>
+
+            {/* Billing Toggle */}
+            <div className="inline-flex items-center p-1 bg-gray-100 rounded-full">
+              <button
+                onClick={() => setBillingInterval('monthly')}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                  billingInterval === 'monthly'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600'
+                }`}
+              >
+                Monatlich
+              </button>
+              <button
+                onClick={() => setBillingInterval('yearly')}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                  billingInterval === 'yearly'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600'
+                }`}
+              >
+                Jährlich
+                <Badge className="ml-2 bg-green-500 text-white text-xs px-1.5 py-0.5">
+                  -20%
+                </Badge>
+              </button>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Starter */}
+            <div className="relative bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-xl transition-all hover:scale-105">
+              <div className="mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-700 mb-4">
+                  <Scissors className="h-3 w-3" />
+                  Einzelsalon
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
+                <p className="text-gray-600">Perfekt für kleine Salons</p>
+              </div>
+
+              <div className="mb-8">
+                <div className="flex items-baseline gap-2">
+                  {billingInterval === 'yearly' && currentPricing.starter.originalPrice && (
+                    <span className="text-2xl text-gray-400 line-through">
+                      €{currentPricing.starter.originalPrice}
+                    </span>
+                  )}
+                  <span className="text-5xl font-bold text-gray-900">
+                    €{currentPricing.starter.price}
+                  </span>
+                  <span className="text-gray-600">/Monat</span>
+                </div>
+                {billingInterval === 'yearly' && currentPricing.starter.save && (
+                  <div className="mt-2">
+                    <Badge className="bg-green-100 text-green-700 border-0">
+                      {currentPricing.starter.save}
+                    </Badge>
+                  </div>
+                )}
+                <p className="text-sm text-gray-500 mt-3">
+                  {currentPricing.starter.users}
+                </p>
+              </div>
+
+              <ul className="space-y-3 mb-8">
+                {currentPricing.starter.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Link href="/auth/sign-up?plan=starter">
+                <Button variant="outline" className="w-full h-11 font-medium hover:bg-gray-50">
+                  30 Tage kostenlos testen
+                </Button>
+              </Link>
+            </div>
+
+            {/* Professional */}
+            <div className="relative bg-gradient-to-b from-blue-50 to-white rounded-2xl p-8 border-2 border-blue-500 shadow-xl transform scale-105">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1">
+                  🔥 Beliebteste Wahl
+                </Badge>
+              </div>
+
+              <div className="mb-6 pt-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 rounded-full text-xs font-medium text-blue-700 mb-4">
+                  <Store className="h-3 w-3" />
+                  Wachsende Salons
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Professional</h3>
+                <p className="text-gray-600">Für ambitionierte Salons</p>
+              </div>
+
+              <div className="mb-8">
+                <div className="flex items-baseline gap-2">
+                  {billingInterval === 'yearly' && currentPricing.professional.originalPrice && (
+                    <span className="text-2xl text-gray-400 line-through">
+                      €{currentPricing.professional.originalPrice}
+                    </span>
+                  )}
+                  <span className="text-5xl font-bold text-gray-900">
+                    €{currentPricing.professional.price}
+                  </span>
+                  <span className="text-gray-600">/Monat</span>
+                </div>
+                {billingInterval === 'yearly' && currentPricing.professional.save && (
+                  <div className="mt-2">
+                    <Badge className="bg-green-100 text-green-700 border-0">
+                      {currentPricing.professional.save}
+                    </Badge>
+                  </div>
+                )}
+                <p className="text-sm text-gray-500 mt-3">
+                  {currentPricing.professional.users}
+                </p>
+              </div>
+
+              <ul className="space-y-3 mb-8">
+                {currentPricing.professional.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-gray-700 font-medium">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Link href="/auth/sign-up?plan=professional">
+                <Button className="w-full h-11 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium shadow-lg">
+                  30 Tage kostenlos testen
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            {/* Premium/Enterprise */}
+            <div className="relative bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-xl transition-all hover:scale-105">
+              <div className="mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-100 rounded-full text-xs font-medium text-purple-700 mb-4">
+                  <Building2 className="h-3 w-3" />
+                  Mehrere Standorte
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Premium</h3>
+                <p className="text-gray-600">Für Salon-Ketten</p>
+              </div>
+
+              <div className="mb-8">
+                <div className="flex items-baseline gap-2">
+                  {billingInterval === 'yearly' && currentPricing.premium.originalPrice && (
+                    <span className="text-2xl text-gray-400 line-through">
+                      €{currentPricing.premium.originalPrice}
+                    </span>
+                  )}
+                  <span className="text-5xl font-bold text-gray-900">
+                    {typeof currentPricing.premium.price === 'number' ? `€${currentPricing.premium.price}` : currentPricing.premium.price}
+                  </span>
+                  {typeof currentPricing.premium.price === 'number' && (
+                    <span className="text-gray-600">/Monat</span>
+                  )}
+                </div>
+                {billingInterval === 'yearly' && currentPricing.premium.save && (
+                  <div className="mt-2">
+                    <Badge className="bg-green-100 text-green-700 border-0">
+                      {currentPricing.premium.save}
+                    </Badge>
+                  </div>
+                )}
+                <p className="text-sm text-gray-500 mt-3">
+                  {currentPricing.premium.users}
+                </p>
+              </div>
+
+              <ul className="space-y-3 mb-8">
+                {currentPricing.premium.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Button variant="outline" className="w-full h-11 font-medium hover:bg-purple-50 border-purple-200">
+                <Phone className="mr-2 h-4 w-4" />
+                Beratung anfordern
+              </Button>
+            </div>
+          </div>
+
+          {/* Pricing Comparison Table */}
+          <div className="mt-20 bg-white rounded-2xl border border-gray-200 p-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+              Detaillierter Vergleich aller Pläne
+            </h3>
+
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b bg-gray-50">
+                    <th className="text-left py-4 px-4 font-semibold text-gray-900">Alle Features im Vergleich</th>
+                    <th className="text-center py-4 px-4">
+                      <div className="font-semibold text-gray-900">Starter</div>
+                      <div className="text-sm text-gray-500">€29/Monat</div>
+                    </th>
+                    <th className="text-center py-4 px-4 bg-blue-50">
+                      <div className="font-semibold text-gray-900">Professional</div>
+                      <div className="text-sm text-gray-500">€49/Monat</div>
+                      <Badge className="bg-blue-600 text-white mt-1">Beliebt</Badge>
+                    </th>
+                    <th className="text-center py-4 px-4">
+                      <div className="font-semibold text-gray-900">Premium</div>
+                      <div className="text-sm text-gray-500">€199/Monat</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Grundfunktionen */}
+                  <tr className="border-t">
+                    <td colSpan={4} className="py-3 px-4 bg-gray-50 font-semibold text-gray-900 text-sm">Grundfunktionen</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Mitarbeiter-Anzahl</td>
+                    <td className="text-center py-3 px-4 font-medium">Bis zu 2</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 font-medium">Bis zu 10</td>
+                    <td className="text-center py-3 px-4 font-medium">Unbegrenzt</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Kunden-Anzahl</td>
+                    <td className="text-center py-3 px-4">Unbegrenzt</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50">Unbegrenzt</td>
+                    <td className="text-center py-3 px-4">Unbegrenzt</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Termine pro Monat</td>
+                    <td className="text-center py-3 px-4">Unbegrenzt</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50">Unbegrenzt</td>
+                    <td className="text-center py-3 px-4">Unbegrenzt</td>
+                  </tr>
+
+                  {/* Online-Präsenz */}
+                  <tr className="border-t">
+                    <td colSpan={4} className="py-3 px-4 bg-gray-50 font-semibold text-gray-900 text-sm">Online-Präsenz</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Subdomain</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Eigene Domain</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Online-Buchung 24/7</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+
+                  {/* Benachrichtigungen */}
+                  <tr className="border-t">
+                    <td colSpan={4} className="py-3 px-4 bg-gray-50 font-semibold text-gray-900 text-sm">Benachrichtigungen</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">E-Mail Benachrichtigungen</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">SMS-Benachrichtigungen</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+
+                  {/* Verwaltung */}
+                  <tr className="border-t">
+                    <td colSpan={4} className="py-3 px-4 bg-gray-50 font-semibold text-gray-900 text-sm">Verwaltung & CRM</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Basis-Kundenverwaltung</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Erweiterte Kundenkartei & Notizen</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Personalplanung</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Benutzerrollen & Rechte</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+
+                  {/* Analytics */}
+                  <tr className="border-t">
+                    <td colSpan={4} className="py-3 px-4 bg-gray-50 font-semibold text-gray-900 text-sm">Analytics & Reports</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Basis-Statistiken</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Erweiterte Analytics</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">KI-Umsatzprognosen</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">KI-Preisoptimierung</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+
+                  {/* Marketing */}
+                  <tr className="border-t">
+                    <td colSpan={4} className="py-3 px-4 bg-gray-50 font-semibold text-gray-900 text-sm">Marketing & Integration</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Google Business Integration</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Loyalty Programm</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Marketing-Kampagnen</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Bewertungsanfragen</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+
+                  {/* Enterprise */}
+                  <tr className="border-t">
+                    <td colSpan={4} className="py-3 px-4 bg-gray-50 font-semibold text-gray-900 text-sm">Enterprise Features</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Multi-Salon Management</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Eigene Mobile App</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">API-Zugriff</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+
+                  {/* Support */}
+                  <tr className="border-t">
+                    <td colSpan={4} className="py-3 px-4 bg-gray-50 font-semibold text-gray-900 text-sm">Support & Service</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Support-Typ</td>
+                    <td className="text-center py-3 px-4 text-sm">E-Mail</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-sm font-medium">Priority Support</td>
+                    <td className="text-center py-3 px-4 text-sm font-medium">24/7 Premium</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Dedizierter Success Manager</td>
+                    <td className="text-center py-3 px-4 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50 text-gray-400">-</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4 text-sm text-gray-700">Kostenlose Schulung</td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4 bg-blue-50/50"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                    <td className="text-center py-3 px-4"><CheckCircle2 className="h-4 w-4 text-green-500 mx-auto" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Money Back Guarantee */}
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-green-50 rounded-full">
+              <Shield className="h-5 w-5 text-green-600" />
+              <span className="text-sm font-medium text-green-800">
+                30-Tage-Geld-zurück-Garantie • Keine Setup-Gebühren • Jederzeit kündbar
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enterprise Section - Premium Design */}
+      <section id="enterprise" className="py-32 px-6 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <Badge className="mb-4 bg-black text-white">
+              Enterprise
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              Für Salon-Ketten und Franchises
+            </h2>
+            <p className="text-lg text-gray-600">
+              Maßgeschneiderte Lösungen für komplexe Anforderungen.
+              Skalierbar, sicher und mit persönlichem Support.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 mb-20">
+            {/* Card 1 */}
+            <div className="group relative bg-white rounded-2xl p-8 border border-gray-200 hover:border-black transition-all hover:shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity" />
+              <div className="relative">
+                <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6">
+                  <Building2 className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Multi-Location Management
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Zentrale Verwaltung aller Standorte mit individuellen Einstellungen pro Filiale.
+                </p>
+                <ul className="space-y-2">
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    Zentrale Stammdatenverwaltung
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    Cross-Location Reporting
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    Franchise-Compliance
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group relative bg-white rounded-2xl p-8 border border-gray-200 hover:border-black transition-all hover:shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity" />
+              <div className="relative">
+                <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6">
+                  <Headphones className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Dedicated Success Team
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Ihr persönliches Team für Onboarding, Schulung und kontinuierliche Optimierung.
+                </p>
+                <ul className="space-y-2">
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    Persönlicher Account Manager
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    24/7 Priority Support
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    Quartalsweise Business Reviews
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group relative bg-white rounded-2xl p-8 border border-gray-200 hover:border-black transition-all hover:shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity" />
+              <div className="relative">
+                <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6">
+                  <Code2 className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Custom Development
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Individuelle Anpassungen und Integrationen nach Ihren Anforderungen.
+                </p>
+                <ul className="space-y-2">
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    API-First Architecture
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    Custom Workflows
+                  </li>
+                  <li className="flex items-center gap-2 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                    White-Label Optionen
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="bg-black text-white rounded-3xl p-12">
+            <div className="grid md:grid-cols-4 gap-8 text-center">
+              <div>
+                <div className="text-5xl font-bold mb-2">50+</div>
+                <div className="text-gray-400">Enterprise Kunden</div>
+              </div>
+              <div>
+                <div className="text-5xl font-bold mb-2">500+</div>
+                <div className="text-gray-400">Verwaltete Standorte</div>
+              </div>
+              <div>
+                <div className="text-5xl font-bold mb-2">2M+</div>
+                <div className="text-gray-400">Termine/Jahr</div>
+              </div>
+              <div>
+                <div className="text-5xl font-bold mb-2">99.99%</div>
+                <div className="text-gray-400">Uptime SLA</div>
+              </div>
+            </div>
+            <div className="mt-12 text-center">
+              <Button size="lg" className="bg-white text-black hover:bg-gray-100">
+                Enterprise Demo anfragen
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials - Enterprise Level */}
+      <section className="py-32 bg-gradient-to-b from-white via-gray-50/50 to-white relative overflow-hidden">
+        {/* Subtle Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }} />
+        </div>
+
+        <div className="container mx-auto px-6 relative">
+          {/* Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full mb-6">
+              <Star className="h-4 w-4 text-blue-600" />
+              <span className="text-sm font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                4.9 von 5 Sternen • 1.200+ Salons
+              </span>
+            </div>
+            <h2 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+              Von Branchenführern empfohlen
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Erfahren Sie, warum die erfolgreichsten Salons Deutschlands auf unsere Plattform setzen
+            </p>
+          </div>
+
+          {/* Main Testimonials Grid */}
+          <div className="grid lg:grid-cols-3 gap-6 mb-20">
+            {[
+              {
+                quote: "Die beste Investition für unser Wachstum. 40% mehr Buchungen, 15 Stunden Zeitersparnis pro Woche. Die ROI war bereits nach 2 Monaten positiv.",
+                author: "Maria Schneider",
+                role: "CEO & Gründerin",
+                company: "Haar Kunst Berlin",
+                metrics: { bookings: "+40%", time: "15h/Woche", roi: "2 Monate" },
+                image: "MS",
+                verified: true
+              },
+              {
+                quote: "Perfekt für Multi-Location Management. Zentrale Kontrolle über 12 Filialen mit Echtzeit-Dashboards. Der Umsatz stieg um 35% in 6 Monaten.",
+                author: "Thomas Müller",
+                role: "Geschäftsführer",
+                company: "Style Group München",
+                metrics: { locations: "12", revenue: "+35%", efficiency: "+60%" },
+                image: "TM",
+                verified: true
+              },
+              {
+                quote: "No-Shows von 15% auf 2% reduziert. Die automatisierten Erinnerungen und das Prepayment-System haben unser Business transformiert.",
+                author: "Lisa Wagner",
+                role: "Director of Operations",
+                company: "Wellness Oase Hamburg",
+                metrics: { noshow: "-87%", satisfaction: "98%", retention: "+45%" },
+                image: "LW",
+                verified: true
+              }
+            ].map((testimonial, index) => (
+              <div key={index} className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+
+                <div className="relative bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 shadow-sm hover:shadow-2xl transition-all duration-300">
+                  {/* Stars */}
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="flex gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    {testimonial.verified && (
+                      <Badge className="bg-green-50 text-green-700 border-green-200 text-xs">
+                        <CheckCircle2 className="h-3 w-3 mr-1" />
+                        Verifiziert
+                      </Badge>
+                    )}
+                  </div>
+
+                  {/* Quote */}
+                  <blockquote className="text-gray-700 text-lg leading-relaxed mb-8">
+                    <span className="text-3xl text-blue-500 leading-none opacity-30">"</span>
+                    {testimonial.quote}
+                    <span className="text-3xl text-blue-500 leading-none opacity-30">"</span>
+                  </blockquote>
+
+                  {/* Metrics Grid */}
+                  <div className="grid grid-cols-3 gap-3 pb-6 mb-6 border-b border-gray-100">
+                    {Object.entries(testimonial.metrics).map(([key, value]) => (
+                      <div key={key} className="text-center">
+                        <div className="text-lg font-bold text-gray-900">{value}</div>
+                        <div className="text-xs text-gray-500 capitalize">
+                          {key === 'bookings' && 'Buchungen'}
+                          {key === 'time' && 'Ersparnis'}
+                          {key === 'roi' && 'ROI'}
+                          {key === 'locations' && 'Standorte'}
+                          {key === 'revenue' && 'Umsatz'}
+                          {key === 'efficiency' && 'Effizienz'}
+                          {key === 'noshow' && 'No-Shows'}
+                          {key === 'satisfaction' && 'Zufriedenheit'}
+                          {key === 'retention' && 'Retention'}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Author */}
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold">
+                        {testimonial.image}
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                        <Check className="h-3 w-3 text-white" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">{testimonial.author}</p>
+                      <p className="text-sm text-gray-600">{testimonial.role}</p>
+                      <p className="text-xs text-gray-500">{testimonial.company}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Success Metrics - Premium Style */}
+          <div className="relative rounded-3xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black" />
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl" />
+            </div>
+
+            <div className="relative p-12 lg:p-16">
+              <h3 className="text-3xl font-bold text-white text-center mb-4">
+                Messbare Erfolge für unsere Partner
+              </h3>
+              <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+                Durchschnittliche Verbesserungen nach 6 Monaten SalonManager-Nutzung
+              </p>
+
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                {[
+                  { value: "1.200+", label: "Aktive Salons", trend: "+28% YoY" },
+                  { value: "2.5M", label: "Termine/Jahr", trend: "+45% YoY" },
+                  { value: "€52M", label: "Transaktionen", trend: "+67% YoY" },
+                  { value: "4.9/5", label: "Bewertung", trend: "1.2K Reviews" }
+                ].map((stat, i) => (
+                  <div key={i} className="text-center group">
+                    <div className="text-4xl lg:text-5xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-gray-400 mb-1">{stat.label}</div>
+                    <div className="text-xs text-green-400 font-medium">{stat.trend}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Logo Wall */}
+          <div className="mt-20 text-center">
+            <p className="text-sm uppercase tracking-wider text-gray-500 mb-8">
+              Partner und Auszeichnungen
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12 grayscale opacity-60">
+              {['L\'Oréal Partner', 'Wella Elite', 'Schwarzkopf Pro', 'Best SaaS 2024', 'ISO 27001'].map((brand) => (
+                <div key={brand} className="text-lg font-semibold text-gray-700 hover:opacity-100 transition-opacity">
+                  {brand}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ - Enterprise Level Accordion */}
+      <section className="py-32 bg-gradient-to-b from-white to-gray-50/50 relative">
+        <div className="max-w-4xl mx-auto px-6">
+          {/* Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-6">
+              <MessageSquare className="h-4 w-4 text-blue-600" />
+              <span className="text-sm font-medium text-blue-900">FAQ</span>
+            </div>
+            <h2 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              Häufig gestellte Fragen
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Alle Antworten zu SalonManager auf einen Blick – klar, transparent und hilfreich
+            </p>
+          </div>
+
+          {/* FAQ Grid - Two Column Layout */}
+          <div className="grid lg:grid-cols-2 gap-4 mb-16">
+            {/* Left Column */}
+            <div className="space-y-4">
+              {faqItems.slice(0, 3).map((item, index) => (
+                <div
+                  key={index}
+                  className={`group bg-white rounded-2xl border transition-all duration-300 ${
+                    expandedFaq === index
+                      ? 'border-blue-200 shadow-lg'
+                      : 'border-gray-100 hover:border-gray-200 hover:shadow-md'
+                  }`}
+                >
+                  <button
+                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4"
+                  >
+                    <div className="flex-1">
+                      <h3 className={`font-semibold transition-colors ${
+                        expandedFaq === index ? 'text-blue-600' : 'text-gray-900 group-hover:text-gray-700'
+                      }`}>
+                        {item.question}
+                      </h3>
+                    </div>
+                    <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                      expandedFaq === index
+                        ? 'bg-blue-100 rotate-180'
+                        : 'bg-gray-50 group-hover:bg-gray-100'
+                    }`}>
+                      <ChevronDown className={`h-4 w-4 transition-colors ${
+                        expandedFaq === index ? 'text-blue-600' : 'text-gray-400'
+                      }`} />
+                    </div>
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-300 ${
+                    expandedFaq === index ? 'max-h-96' : 'max-h-0'
+                  }`}>
+                    <div className="px-6 pb-5">
+                      <p className="text-gray-600 leading-relaxed">{item.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-4">
+              {faqItems.slice(3, 6).map((item, index) => {
+                const actualIndex = index + 3;
+                return (
+                  <div
+                    key={actualIndex}
+                    className={`group bg-white rounded-2xl border transition-all duration-300 ${
+                      expandedFaq === actualIndex
+                        ? 'border-blue-200 shadow-lg'
+                        : 'border-gray-100 hover:border-gray-200 hover:shadow-md'
+                    }`}
+                  >
+                    <button
+                      onClick={() => setExpandedFaq(expandedFaq === actualIndex ? null : actualIndex)}
+                      className="w-full px-6 py-5 text-left flex items-center justify-between gap-4"
+                    >
+                      <div className="flex-1">
+                        <h3 className={`font-semibold transition-colors ${
+                          expandedFaq === actualIndex ? 'text-blue-600' : 'text-gray-900 group-hover:text-gray-700'
+                        }`}>
+                          {item.question}
+                        </h3>
+                      </div>
+                      <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                        expandedFaq === actualIndex
+                          ? 'bg-blue-100 rotate-180'
+                          : 'bg-gray-50 group-hover:bg-gray-100'
+                      }`}>
+                        <ChevronDown className={`h-4 w-4 transition-colors ${
+                          expandedFaq === actualIndex ? 'text-blue-600' : 'text-gray-400'
+                        }`} />
+                      </div>
+                    </button>
+                    <div className={`overflow-hidden transition-all duration-300 ${
+                      expandedFaq === actualIndex ? 'max-h-96' : 'max-h-0'
+                    }`}>
+                      <div className="px-6 pb-5">
+                        <p className="text-gray-600 leading-relaxed">{item.answer}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Contact Support Card */}
+          <div className="relative mt-20">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl blur-xl opacity-20" />
+            <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 lg:p-12 text-white">
+              <div className="lg:flex items-center justify-between gap-8">
+                <div>
+                  <h3 className="text-2xl font-bold mb-2">Noch Fragen?</h3>
+                  <p className="text-white/90">
+                    Unser Support-Team ist für Sie da – schnell, kompetent und freundlich
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 mt-6 lg:mt-0">
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="bg-white text-gray-900 hover:bg-gray-100 gap-2"
+                  >
+                    <Mail className="h-4 w-4" />
+                    support@salonmanager.de
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="bg-white/10 backdrop-blur border-white/30 text-white hover:bg-white/20 gap-2"
+                  >
+                    <Phone className="h-4 w-4" />
+                    +49 30 1234567
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section - Apple/Stripe Style */}
+      <section className="relative py-32 px-6 bg-black overflow-hidden">
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/5 to-transparent" />
+
+        {/* Animated grid pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(to right, #ffffff10 1px, transparent 1px), linear-gradient(to bottom, #ffffff10 1px, transparent 1px)`,
+            backgroundSize: '50px 50px'
+          }} />
+        </div>
+
+        <div className="relative max-w-5xl mx-auto text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8">
+            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+            <span className="text-sm font-medium text-blue-400">30 Tage kostenlos testen</span>
+          </div>
+
+          <h2 className="text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
+            Bereit durchzustarten?
+          </h2>
+          <p className="text-xl lg:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto">
+            1.200+ Salons vertrauen SalonManager.
+            <span className="block mt-2 text-gray-500">Keine Kreditkarte erforderlich.</span>
+          </p>
+
+          {/* Visual Dashboard Preview */}
+          <div className="relative mb-12 max-w-4xl mx-auto">
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 pointer-events-none" />
+            <div className="relative bg-gray-900 rounded-2xl border border-gray-800 p-1 shadow-2xl">
+              <div className="bg-gray-950 rounded-xl p-8">
+                <div className="grid grid-cols-3 gap-4 mb-4">
+                  {[1,2,3].map(i => (
+                    <div key={i} className="bg-gray-900 rounded-lg p-4 border border-gray-800">
+                      <div className="h-2 bg-gray-800 rounded mb-2" />
+                      <div className="h-8 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded" />
+                    </div>
+                  ))}
+                </div>
+                <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+                  <div className="h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Link href="/auth/sign-up">
+              <Button
+                size="lg"
+                className="h-14 px-8 bg-white text-black hover:bg-gray-100 font-medium text-lg"
+              >
+                Kostenlos starten
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Button
+              size="lg"
+              variant="outline"
+              className="h-14 px-8 bg-transparent border-gray-700 text-white hover:bg-gray-900 font-medium text-lg"
+            >
+              Demo ansehen
+            </Button>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-gray-800">
+            {[
+              { icon: Shield, label: "DSGVO konform" },
+              { icon: Lock, label: "SSL verschlüsselt" },
+              { icon: Award, label: "Award Winner 2024" },
+              { icon: Headphones, label: "24/7 Support" }
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center gap-2">
+                <item.icon className="h-6 w-6 text-gray-500" />
+                <span className="text-sm text-gray-500">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer - Notion/Stripe Style */}
+      <footer className="bg-white border-t border-gray-200">
+        <div className="container mx-auto px-6">
+          {/* Main Footer */}
+          <div className="py-20">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+              {/* Brand Column */}
+              <div className="col-span-2">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
+                    <Scissors className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-xl font-semibold">SalonManager</span>
+                </div>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-xs">
+                  Die moderne Salon-Software ohne Provisionen.
+                  Ihre eigene Website. Ihr Erfolg.
+                </p>
+                {/* Social Links */}
+                <div className="flex gap-3">
+                  {[
+                    { icon: 'github', href: '#' },
+                    { icon: 'twitter', href: '#' },
+                    { icon: 'linkedin', href: '#' }
+                  ].map((social) => (
+                    <a
+                      key={social.icon}
+                      href={social.href}
+                      className="w-9 h-9 rounded-lg bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                    >
+                      <div className="w-4 h-4 bg-gray-600" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Product */}
+              <div>
+                <h3 className="font-medium text-gray-900 mb-4">Produkt</h3>
+                <ul className="space-y-3 text-sm">
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Features</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Preise</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Integrationen</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Changelog</Link></li>
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div>
+                <h3 className="font-medium text-gray-900 mb-4">Ressourcen</h3>
+                <ul className="space-y-3 text-sm">
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Blog</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Guides</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">API Docs</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Status</Link></li>
+                </ul>
+              </div>
+
+              {/* Company */}
+              <div>
+                <h3 className="font-medium text-gray-900 mb-4">Unternehmen</h3>
+                <ul className="space-y-3 text-sm">
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Über uns</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Karriere</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Partner</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Presse</Link></li>
+                </ul>
+              </div>
+
+              {/* Legal */}
+              <div>
+                <h3 className="font-medium text-gray-900 mb-4">Rechtliches</h3>
+                <ul className="space-y-3 text-sm">
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Datenschutz</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">AGB</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Impressum</Link></li>
+                  <li><Link href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Cookies</Link></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-200 py-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <span>© 2024 SalonManager GmbH</span>
+                <span className="text-gray-300">•</span>
+                <span>Alle Rechte vorbehalten</span>
+              </div>
+
+              <div className="flex items-center gap-6">
+                {/* Status Indicator */}
+                <a href="#" className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900">
+                  <div className="w-2 h-2 bg-green-500 rounded-full" />
+                  <span>Alle Systeme operational</span>
+                </a>
+
+                {/* Security Badges */}
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                    <Shield className="h-4 w-4" />
+                    <span>DSGVO</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                    <Lock className="h-4 w-4" />
+                    <span>SSL</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                    <Award className="h-4 w-4" />
+                    <span>ISO 27001</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
